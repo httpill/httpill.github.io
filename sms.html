@@ -4,50 +4,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>安卓逐条发送短信模板</title>
+    <title>安卓通过模板逐条发送短信</title>
     <script>
         function check(){
             document.getElementById("counter").value = 0;
+            document.getElementById("current").innerHTML = 1;
+            
             let sms_txt = document.getElementById("sms_txt").value;
             let sms_store = document.getElementById("sms_store").value;
             let sms_list = sms_store.split(",");
 
             let has_been_sent  = "";
             let sms_label = ""
+            let total = 0;
             try {
-                sms_list.forEach(function(element,index_0,array){
-                    let element_split = element.split(":");
+                sms_list.forEach(function(element,index_0,array_0){
+                    let element_split = element.split("#");
                     let txt = sms_txt;
                     let tel = 0;
-                    element_split.forEach(function(item,index_1,array){
-                        if(/^1[3|5|7|8][0-9]\d{4,8}$/.test(item)){
-                            tel = item;
+                    element_split.forEach(function(item,index_1,array_1){
+                        if((index_1 + 1) == array_1.length){
+                            if(/^1[3|5|7|8][0-9]\d{4,8}$/.test(item)){
+                                tel = item;
+                            }else{
+                                alert("手机错误格式：" + array_1);
+                                throw err = new Error("手机错误格式");
+                            }
+                        }else{
+                            txt = txt.replace("#" + index_1 + "#", element_split[index_1]);
+                            has_been_sent += element;
                         }
-                        txt = txt.replace("#" + index_1 + "#", element_split[index_1]);
-                        has_been_sent += item;
                     })
                     sms_label += '<a id="sms_' + index_0 + '" href="sms:' + tel + '?body=' + txt + '">' + element + '</a><br>';
                 });
-            document.getElementById("sms_box").innerHTML = sms_label;
+                document.getElementById("sms_box").innerHTML = sms_label;
+                document.getElementById("total").value = ++total;
+                document.getElementById("total_txt").innerHTML = total + 1;
             } catch (error) {
-                alert("错误格式：" + sms_store.replace(has_been_sent, ""));
+                if(error.message != "手机错误格式"){
+                    alert("数据错误格式：" + sms_store.replace(has_been_sent, ""));
+                }
             }
         }
         function send(){
-            let index= document.getElementById("counter").value;
-            document.getElementsById("sms_" + index).onclick;
+            let index = document.getElementById("counter").value;
+            let total = document.getElementById("total").value;
+            if(index > total){
+                alert("已完成队列");
+                return;
+            }
+            document.getElementById("sms_" + index).onclick;
+            document.getElementById("sms_" + index).innerHTML += "(已发送)";
             document.getElementById("counter").value = ++index;
+            document.getElementById("current").innerHTML = index + 1;
         }
     </script>
+    <style>
+        #sms_txt{
+            width: 100%;
+            height: 5rem;
+        }
+        #sms_store{
+            width: 100%;
+            height: 10rem;
+        }
+    </style>
 </head>
 <body>
+    <input type="hidden" id="total" value="0">
     <input type="hidden" id="counter" value="0">
     <textarea id="sms_txt" placeholder="示例：尊敬的#0#您好！您的手机号码为#1#(占位符从0开始)"></textarea>
-    <textarea id="sms_store" placeholder="示例：郭先生:17665125929,张女士:13123512317(内容里有几个#?#占位符就必须有几个冒号分开)"></textarea>
-    <label for="total">总算：</label><span id="total"></span>
-    <label for="now">已发：</label><span id="now"></span>
+    <textarea id="sms_store" placeholder="示例：郭先生#6月1日#17665125929,张女士#6月1日#13123512317(内容里有几个#?#占位符就必须有几个#隔开，收信手机号加在末尾同样#隔开)"></textarea>
+    <label for="total">统计：</label><span id="total_txt"></span>
     <input type="button" value="校验" onclick="javascript:check()"/>
-    <button onclick="javascript:send()">发送第<span id="current"></span>条</button>
+    <button onclick="javascript:send()">发送第<span id="current">1</span>条</button>
     <div id="sms_box">
     </div>
 </body>
