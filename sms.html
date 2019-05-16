@@ -35,7 +35,7 @@
                             has_been_sent += element;
                         }
                     })
-                    sms_label += '<a id="sms_' + index_0 + '" href="sms:' + tel + '?body=' + txt + '">' + element + '</a><br>';
+                    sms_label += '<span id="sms_' + index_0 + '" data-href="sms:' + tel + '?body=' + txt + '">' + element + '</span><br>';
                 });
                 document.getElementById("sms_box").innerHTML = sms_label;
                 document.getElementById("total").value = ++total;
@@ -53,7 +53,8 @@
                 alert("已完成队列");
                 return;
             }
-            document.getElementById("sms_" + index).onclick;
+            let href = document.getElementById("sms_" + index).getAttribute("data-href");
+            window.open(href);
             document.getElementById("sms_" + index).innerHTML += "(已发送)";
             document.getElementById("counter").value = ++index;
             document.getElementById("current").innerHTML = index + 1;
