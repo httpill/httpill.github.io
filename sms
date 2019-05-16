@@ -76,7 +76,7 @@
 <body>
     <input type="hidden" id="total" value="0">
     <input type="hidden" id="counter" value="0">
-    <textarea id="sms_txt" placeholder="示例：尊敬的#0#您好！您的手机号码为#1#(占位符从0开始)">尊敬的#0#您好！我是来自#1#的程序员--来自短信模板发送工具。</textarea>
+    <textarea id="sms_txt" placeholder="示例：尊敬的#0#您好！您的手机号码为#1#(占位符从0开始)">尊敬的#0#您好！我是来自#1#的程序员--来自https://httpill.com/sms短信模板发送工具。</textarea>
     <textarea id="sms_store" placeholder="示例：郭先生#6月1日#17665125929,张女士#6月1日#13123512317(内容里有几个#?#占位符就必须有几个井号“#”隔开，多名收信人通过英文逗号“,”隔开，收信手机号加在末尾同样#隔开)">郭先生#广州#17665125929</textarea>
     <label for="total">统计：</label><span id="total_txt"></span>
     <input type="button" value="校验" onclick="javascript:check()"/>
