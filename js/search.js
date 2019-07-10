@@ -1,5 +1,4 @@
 $(function(){
-    let result = [];
     if(getQueryVariable("keyword")) {
         search(getQueryVariable("keyword"));
     }
@@ -18,24 +17,25 @@ function getQueryVariable(variable){
     }
     return false;
 }
+let result = [];
 function search(keyword){
     $.get("json/articles.json", {}, function (articles){
         console.info(articles);
         articles = articles || {};
         let note = articles.note || [];
-        note.each(function(i, item){
+        note.forEach(function(i, item){
             item = item || {};
             if(item.title == keyword 
                 || item.user == keyword 
                 || item.date == keyword 
                 || item.lable == keyword 
                 || item.content == keyword){
-                result[result.length + 1] = item;
+                result.push(item);
             };
         });
     });
     let lable = ""
-    result.each(function(i, item){
+    result.forEach(function(i, item){
         lable += "<article>"
                 + "    <h3>" + item.title + "</h3>"
                 + "    <p>" + item.content.substring(0, 200) + "</p>"
