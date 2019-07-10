@@ -41,5 +41,5 @@ function search(keyword){
                 + "    <p>" + item.content.substring(0, 200) + "</p>"
                 + "</article>";
     });
-    $("#article-list").val(lable);
+    $("#article-list").html(lable);
 }
