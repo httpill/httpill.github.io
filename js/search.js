@@ -3,7 +3,7 @@ $(function(){
         search(getQueryVariable("keyword"));
     }
     $("#search-keyword").change(function(){
-        search($("#search-keyword").val);
+        search($("#search-keyword").val());
     });
 })
 function getQueryVariable(variable){
