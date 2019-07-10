@@ -25,11 +25,11 @@ function search(keyword){
         let note = articles.note || [];
         note.forEach(function(item, i){
             item = item || {};
-            if(item.title == keyword 
-                || item.user == keyword 
-                || item.date == keyword 
-                || item.lable == keyword 
-                || item.content == keyword){
+            if(item.title.indexOf(keyword) != -1
+                || item.user.indexOf(keyword) != -1
+                || item.date.indexOf(keyword) != -1
+                || item.lable.indexOf(keyword) != -1
+                || item.content.indexOf(keyword) != -1){
                 result.push(item);
             };
         });
