@@ -33,13 +33,13 @@ function search(keyword){
                 result.push(item);
             };
         });
+        let lable = ""
+        result.forEach(function(item, i){
+            lable += "<article>"
+                    + "    <h3>" + item.title + "</h3>"
+                    + "    <p>" + item.content.substring(0, 200) + "</p>"
+                    + "</article>";
+        });
+        $("#article-list").html(lable);
     });
-    let lable = ""
-    result.forEach(function(item, i){
-        lable += "<article>"
-                + "    <h3>" + item.title + "</h3>"
-                + "    <p>" + item.content.substring(0, 200) + "</p>"
-                + "</article>";
-    });
-    $("#article-list").html(lable);
 }
