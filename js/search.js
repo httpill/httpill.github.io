@@ -17,8 +17,8 @@ function getQueryVariable(variable){
     }
     return false;
 }
-let result = [];
 function search(keyword){
+    let result = [];
     $.get("json/articles.json", {}, function (articles){
         console.info(articles);
         articles = articles || {};
