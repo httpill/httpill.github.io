@@ -21,10 +21,10 @@ function getQueryVariable(variable){
 function search(keyword){
     $.get("json/articles.json", {}, function (articles){
         console.info(articles);
-        articles = articles | {};
-        let note = articles.note | [];
+        articles = articles || {};
+        let note = articles.note || [];
         note.each(function(i, item){
-            item = item | {};
+            item = item || {};
             if(item.title == keyword 
                 || item.user == keyword 
                 || item.date == keyword 
