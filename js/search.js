@@ -23,7 +23,7 @@ function search(keyword){
         console.info(articles);
         articles = articles || {};
         let note = articles.note || [];
-        note.forEach(function(i, item){
+        note.forEach(function(item, i){
             item = item || {};
             if(item.title == keyword 
                 || item.user == keyword 
@@ -35,7 +35,7 @@ function search(keyword){
         });
     });
     let lable = ""
-    result.forEach(function(i, item){
+    result.forEach(function(item, i){
         lable += "<article>"
                 + "    <h3>" + item.title + "</h3>"
                 + "    <p>" + item.content.substring(0, 200) + "</p>"
